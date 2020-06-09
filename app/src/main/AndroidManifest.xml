@@ -5,7 +5,8 @@
     <!-- Required to allow the app to send events and user profile information -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Recommended so that CleverTap knows when to attempt a network call -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:name=".MyApplication"
@@ -21,29 +22,13 @@
         <activity
             android:name=".pe_et.EdTechListActivity"
             android:label="A_CT_EdTech">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- <receiver android:name=".UninstallIntentReceiver"> -->
-        <!-- <intent-filter android:priority="0"> -->
-        <!-- <action android:name="android.intent.action.QUERY_PACKAGE_RESTART" /> -->
-        <!-- <data android:scheme="package" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
+        </activity>
         <activity android:name=".nd_ott.StoryViewActivity" />
         <activity
             android:name=".nd_ott.OTTHomeActivity"
             android:label="A_CT_OTT">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity android:name=".DeepLinkActivity">
             <intent-filter android:autoVerify="true">
@@ -60,23 +45,12 @@
         </activity>
         <activity android:name=".AppInboxActivity" />
         <activity android:name=".InAppActivity" /> <!-- CS Support -->
-        <!--
-<meta-data
-            android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="W67-774-7Z5Z" />
-        <meta-data
-            android:name="CLEVERTAP_TOKEN"
-            android:value="4aa-a60" />
-        -->
-        <!-- TEST-Chetan's Demo App -->
-        <!--
-<meta-data
-            android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="TEST-549-W7Z-775Z" />
-        <meta-data
-            android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-1a0-c45" />
-        -->
+        <service android:name="com.clevertap.android.sdk.CTNotificationIntentService">
+            <intent-filter>
+                <action android:name="com.clevertap.PUSH_EVENT" />
+            </intent-filter>
+        </service>
+
         <!-- Chetan's Demo App -->
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
@@ -136,14 +110,12 @@
             android:name=".MainActivity"
             android:label="A_CT_Main">
 
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".UserRegisterActivity"></activity>

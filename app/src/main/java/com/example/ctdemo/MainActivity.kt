@@ -1,5 +1,6 @@
 package com.example.ctdemo
 
+import android.app.NotificationManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +32,19 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
 
             val intent = Intent(this, InAppActivity::class.java)
             startActivity(intent)
+            val cleverTapAPI =
+                CleverTapAPI.getDefaultInstance(applicationContext)
+// Creating a Notification Channel With Sound Support
+// Creating a Notification Channel With Sound Support
+            CleverTapAPI.createNotificationChannel(
+                applicationContext,
+                "got",
+                "Game of Thrones",
+                "Game Of Thrones",
+                NotificationManager.IMPORTANCE_MAX,
+                true,
+                "gameofthrones.mp3"
+            )
 
 
 //            pushCreateProfileClevertap();
