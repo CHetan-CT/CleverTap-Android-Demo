@@ -14,7 +14,7 @@ public class MyApplication extends Application {
         return cleverTap;
     }
 
-    private static final String WRITE_KEY = "<Your_WRITE_KEY>"; //This you will receive under source in segment.
+    private static final String WRITE_KEY = "4BzpCasQKJWsQhgzqSLhDNmshNvIJrm8"; //This you will receive under source in segment.
     private static final String CLEVERTAP_KEY = "CleverTap";
     public static boolean sCleverTapSegmentEnabled = false;
     private static CleverTapAPI cleverTap;
@@ -28,7 +28,7 @@ public class MyApplication extends Application {
         ActivityLifecycleCallback.register(this);
 
         Analytics analytics = new Analytics.Builder(getApplicationContext(), WRITE_KEY)
-                .logLevel(Analytics.LogLevel.VERBOSE)
+                .logLevel(Analytics.LogLevel.DEBUG)
                 .use(CleverTapIntegration.FACTORY)
                 .build();
 
