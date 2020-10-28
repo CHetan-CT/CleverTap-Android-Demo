@@ -1,22 +1,22 @@
 package com.example.ctdemo
 
+import android.app.NotificationManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.clevertap.android.sdk.CTExperimentsListener
-import com.clevertap.android.sdk.CTInboxListener
-import com.clevertap.android.sdk.CTInboxStyleConfig
+import com.clevertap.android.sdk.*
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnitContent
 import com.example.ctdemo.databinding.ActivityMainBinding
-import com.segment.analytics.Analytics
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
-    CTExperimentsListener {
+    CTExperimentsListener, InAppNotificationButtonListener, InboxMessageButtonListener {
     private lateinit var binding: ActivityMainBinding
     private val displayUnits: ArrayList<CleverTapDisplayUnitContent> = ArrayList()
     private lateinit var adapter: CarouselAdapter
@@ -31,20 +31,34 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
         }
 
         binding.buttonNativeDisplay.setOnClickListener {
-            Analytics.with(applicationContext).track("Native Display")
+            MyApplication.getCleverTapDefaultInstance().pushEvent("Native Display")
         }
+        CleverTapAPI.createNotificationChannel(
+            applicationContext, "channel_id",
+            "channel_name", "channel_description",
+            NotificationManager.IMPORTANCE_MAX, true
+        )
+//        MyApplication.getCleverTapDefaultInstance().setInAppNotificationButtonListener(this)
 
 //        MyApplication.getCleverTapDefaultInstance().ctNotificationInboxListener = this
+        Log.d(
+            "Inbox message count",
+            "" + MyApplication.getCleverTapDefaultInstance().allInboxMessages
+        )
+
+        
 //
-//        MyApplication.getCleverTapDefaultInstance().initializeInbox()
+        MyApplication.getCleverTapDefaultInstance().initializeInbox()
 //
-//        MyApplication.getCleverTapDefaultInstance().setDisplayUnitListener(this)
+        MyApplication.getCleverTapDefaultInstance().setDisplayUnitListener(this)
 //
 //        MyApplication.getCleverTapDefaultInstance().ctExperimentsListener = this
+        MyApplication.getCleverTapDefaultInstance().setInboxMessageButtonListener(this)
     }
 
     override fun inboxDidInitialize() {
         binding.buttonAppInbox.setOnClickListener {
+            MyApplication.getCleverTapDefaultInstance().pushEvent("App Inbox")
 
             val tabs: ArrayList<String> = ArrayList()
             tabs.add("Promotions")
@@ -64,6 +78,7 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
             styleConfig.navBarTitle = "MY INBOX"
             styleConfig.navBarColor = "#FFFFFF"
             styleConfig.inboxBackgroundColor = "#00FF00"
+            MyApplication.getCleverTapDefaultInstance().showAppInbox(styleConfig)
 
         }
     }
@@ -91,6 +106,22 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
     }
 
     override fun CTExperimentsUpdated() {
+
+    }
+
+    override fun onInAppButtonClick(payload: HashMap<String, String>?) {
+        Log.d("Clicked", "" + payload?.size)
+
+    }
+
+    override fun onInboxButtonClick(payload: HashMap<String, String>?) {
+        if (payload != null) {
+            Log.d("Test", "" + payload.keys.toString())
+            abc("")
+        }
+    }
+
+    fun abc(abc: CharSequence) {
 
     }
 }

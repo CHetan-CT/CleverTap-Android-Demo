@@ -5,8 +5,8 @@ import android.app.NotificationManager;
 
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
-import com.segment.analytics.Analytics;
-import com.segment.analytics.android.integrations.clevertap.CleverTapIntegration;
+
+import io.branch.referral.Branch;
 
 public class MyApplication extends Application {
     //
@@ -27,15 +27,20 @@ public class MyApplication extends Application {
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG); //Set to OFF in production
         ActivityLifecycleCallback.register(this);
 
-        Analytics analytics = new Analytics.Builder(getApplicationContext(), WRITE_KEY)
-                .logLevel(Analytics.LogLevel.DEBUG)
-                .use(CleverTapIntegration.FACTORY)
-                .build();
+//        Analytics analytics = new Analytics.Builder(getApplicationContext(), WRITE_KEY)
+//                .logLevel(Analytics.LogLevel.DEBUG)
+//                .use(CleverTapIntegration.FACTORY)
+//                .build();
+//
+//        analytics.onIntegrationReady(CLEVERTAP_KEY, this::CleverTapIntegrationReady);
 
-        analytics.onIntegrationReady(CLEVERTAP_KEY, this::CleverTapIntegrationReady);
-
-        Analytics.setSingletonInstance(analytics);
+//        Analytics.setSingletonInstance(analytics);
+        CleverTapIntegrationReady(CleverTapAPI.getDefaultInstance(this));
         addNotificationChannel();
+
+        Branch branch = Branch.getInstance();
+        branch.setRequestMetadata("$clevertap_attribution_id",
+                CleverTapAPI.getDefaultInstance(getApplicationContext()).getCleverTapAttributionIdentifier());
     }
 
     private void CleverTapIntegrationReady(CleverTapAPI instance) {

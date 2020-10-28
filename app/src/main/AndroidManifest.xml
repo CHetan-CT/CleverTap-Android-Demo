@@ -58,6 +58,11 @@
         <meta-data
             android:name="CLEVERTAP_TOKEN"
             android:value="1a0-c44" />
+
+        <meta-data
+            android:name="CLEVERTAP_REGION"
+            android:value=" " />
+
         <meta-data
             android:name="CLEVERTAP_NOTIFICATION_ICON"
             android:value="ic_small_notif" /> <!-- name of your file in the drawable directory without the file extension. -->
@@ -118,7 +123,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".UserRegisterActivity"></activity>
+        <activity android:name=".UserRegisterActivity"/>
     </application>
 
 </manifest>
