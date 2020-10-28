@@ -19,6 +19,7 @@ public class MyApplication extends Application {
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG); //Set to OFF in production
         ActivityLifecycleCallback.register(this);
 
+
 //        JSONObject configSetting = new JSONObject();
 //        try {
 //            configSetting.put("accountId", "TEST-549-W7Z-775Z");

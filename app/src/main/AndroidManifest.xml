@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ctdemo">
-    <!-- Required to allow the app to send events and user profile information -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- Recommended so that CleverTap knows when to attempt a network call -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -35,35 +34,21 @@
 
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="W67-774-7Z5Z" />
+            android:value="W6Z-8RW-485Z" />
+
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="4aa-a60" />
+            android:value="02b-160" />
 
-        <!--<meta-data
-            android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="TEST-549-W7Z-775Z" />
         <meta-data
-            android:name="CLEVERTAP_TOKEN"
-            android:value="TEST-1a0-c45" />-->
+            android:name="CLEVERTAP_REGION"
+            android:value="us1"/>
 
-        <!--       <meta-data
-                       android:name="CLEVERTAP_ACCOUNT_ID"
-                       android:value="449-W7Z-775Z" />
-
-                   <meta-data
-                       android:name="CLEVERTAP_TOKEN"
-                       android:value="1a0-c44" />-->
         <meta-data
             android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
             android:value="1" />
 
-        <service android:name="com.clevertap.android.sdk.FcmTokenListenerService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name="com.clevertap.android.sdk.FcmMessageListenerService">
+        <service android:name="MyFirebaseMessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -76,19 +61,19 @@
             android:name="CLEVERTAP_BACKGROUND_SYNC"
             android:value="1" /> <!-- use CTBackgroundIntentService to target users below Android 21 (Lollipop) -->
         <service
-            android:name="com.clevertap.android.sdk.CTBackgroundIntentService"
+            android:name="com.clevertap.android.sdk.pushnotification.amp.CTBackgroundIntentService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.clevertap.BG_EVENT" />
             </intent-filter>
         </service> <!-- use CTBackgroundJobService to target users on and above Android 21 (Lollipop) -->
         <service
-            android:name="com.clevertap.android.sdk.CTBackgroundJobService"
+            android:name="com.clevertap.android.sdk.pushnotification.amp.CTBackgroundJobService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
-            android:name="com.clevertap.android.sdk.CTPushNotificationReceiver"
+            android:name="com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver"
             android:enabled="true"
             android:exported="false" />
 
