@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.clevertap.android.sdk.CTExperimentsListener
 import com.clevertap.android.sdk.CTInboxListener
+import com.clevertap.android.sdk.CTInboxMessage
 import com.clevertap.android.sdk.CTInboxStyleConfig
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
@@ -48,31 +49,37 @@ class MainActivity : AppCompatActivity(), CTInboxListener, DisplayUnitListener,
 
 
     override fun inboxDidInitialize() {
-        binding.buttonAppInbox.setOnClickListener {
 
-            val tabs: ArrayList<String> = ArrayList()
-            tabs.add("Promotions")
-            tabs.add("Offers")
-            tabs.add("Others") //We support upto 2 tabs only. Additional tabs will be ignored
-
-            val styleConfig = CTInboxStyleConfig()
-            styleConfig.tabs = tabs //Do not use this if you don't want to use tabs
-
-            styleConfig.tabBackgroundColor = "#FF0000" //provide Hex code in string ONLY
-
-            styleConfig.selectedTabIndicatorColor = "#0000FF"
-            styleConfig.selectedTabColor = "#000000"
-            styleConfig.unselectedTabColor = "#FFFFFF"
-            styleConfig.backButtonColor = "#FF0000"
-            styleConfig.navBarTitleColor = "#FF0000"
-            styleConfig.navBarTitle = "MY INBOX"
-            styleConfig.navBarColor = "#FFFFFF"
-            styleConfig.inboxBackgroundColor = "#00FF00"
-
+        val inboxMessages: java.util.ArrayList<CTInboxMessage> =
             MyApplication.getCleverTapDefaultInstance()
-                .showAppInbox(styleConfig) //Opens activity tith Tabs
+                .allInboxMessages;
 
-        }
+        Log.d("inboxMessages", "Value : ${inboxMessages.size}")
+
+//        binding.buttonAppInbox.setOnClickListener {
+//
+//            val tabs: ArrayList<String> = ArrayList()
+//            tabs.add("Promotions")
+//            tabs.add("Offers")
+//            tabs.add("Others") //We support upto 2 tabs only. Additional tabs will be ignored
+//
+//            val styleConfig = CTInboxStyleConfig()
+//            styleConfig.tabs = tabs //Do not use this if you don't want to use tabs
+//
+//            styleConfig.tabBackgroundColor = "#FF0000" //provide Hex code in string ONLY
+//
+//            styleConfig.selectedTabIndicatorColor = "#0000FF"
+//            styleConfig.selectedTabColor = "#000000"
+//            styleConfig.unselectedTabColor = "#FFFFFF"
+//            styleConfig.backButtonColor = "#FF0000"
+//            styleConfig.navBarTitleColor = "#FF0000"
+//            styleConfig.navBarTitle = "MY INBOX"
+//            styleConfig.navBarColor = "#FFFFFF"
+//            styleConfig.inboxBackgroundColor = "#00FF00"
+//
+//            MyApplication.getCleverTapDefaultInstance()
+//                .showAppInbox(styleConfig) //Opens activity tith Tabs
+//        }
     }
 
     override fun inboxMessagesDidUpdate() {
