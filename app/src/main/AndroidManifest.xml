@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ctdemo">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -58,21 +59,19 @@
             android:name="com.clevertap.pushtemplates.PTNotificationIntentService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.clevertap.PT_PUSH_EVENT"/>
+                <action android:name="com.clevertap.PT_PUSH_EVENT" />
             </intent-filter>
         </service>
 
         <receiver
             android:name="com.clevertap.pushtemplates.PTPushNotificationReceiver"
-            android:exported="false"
-            android:enabled="true">
-        </receiver>
+            android:enabled="true"
+            android:exported="false"></receiver>
 
         <receiver
             android:name="com.clevertap.pushtemplates.PushTemplateReceiver"
-            android:exported="false"
-            android:enabled="true">
-        </receiver>
+            android:enabled="true"
+            android:exported="false"></receiver>
 
         <meta-data
             android:name="FCM_SENDER_ID"
